@@ -1,22 +1,19 @@
 package com.zehir1345java.game.gameobject;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Vector2;
 import com.zehir1345java.game.imageloder.ImageLoader;
 
 import java.util.SplittableRandom;
+import java.util.Vector;
 
 public class Player implements GameObject{
-    private float xKord;
-    private float yKord;
-    private float width;
-    private float height;
-    private float speed;
-    private float acceleration;
-    private float maxSpeed;
-    private float minSpeed;
-
+    private float xKord,yKord,width,height;
+    private float speed,maxSpeed,minSpeed,acceleration;
     private boolean left=false,right=false,up=false,down=false;
-    public Player(float xKord, float yKord, float width, float height){
+    private boolean movewithDirection=false;
+    private Vector2 direction;
+    public Player(float xKord, float yKord, float width, float height,Vector2 vector2){
         this.xKord = xKord;
         this.yKord = yKord;
         this.width = width;
@@ -25,6 +22,7 @@ public class Player implements GameObject{
         acceleration=0.02f;
         maxSpeed=12;
         minSpeed=0;
+        direction = vector2;
     }
     @Override
     public void render(SpriteBatch spriteBatch) {
@@ -37,6 +35,10 @@ public class Player implements GameObject{
     public void update(float delta) {
       speed+=acceleration;
       move();
+      if(movewithDirection){
+          xKord += direction.x/100;
+          yKord += direction.y/100;
+      }
     }
     public void move(){
         if(left) xKord-=speed;
@@ -61,10 +63,7 @@ public class Player implements GameObject{
         this.down = down;
     }
 
-    public void stop(){
-        left = false;
-        right = false;
-        down = false;
-        up = false;
+    public void setMovewithDirection(boolean movewithDirection) {
+        this.movewithDirection = movewithDirection;
     }
 }

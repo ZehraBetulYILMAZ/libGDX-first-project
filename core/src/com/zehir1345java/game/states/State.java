@@ -6,7 +6,9 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public abstract class State {
     protected OrthographicCamera camera;
-    public State(){
+    private StateManager stateManager;
+    public State(StateManager stateManager){
+        this.stateManager = stateManager;
       camera = new OrthographicCamera();
       camera.setToOrtho(true, Gdx.graphics.getWidth(),Gdx.graphics.getHeight());
     }

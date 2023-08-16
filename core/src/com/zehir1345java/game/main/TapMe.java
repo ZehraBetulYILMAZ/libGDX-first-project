@@ -6,6 +6,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.zehir1345java.game.imageloder.ImageLoader;
+import com.zehir1345java.game.states.MenuState;
 import com.zehir1345java.game.states.PlayState;
 import com.zehir1345java.game.states.StateManager;
 
@@ -22,7 +23,7 @@ public class TapMe extends Game {
         System.out.println("Oyun başlatıldı");
 		ImageLoader.load();
 		stateManager = new StateManager();
-		stateManager.pushState(new PlayState());
+		stateManager.pushState(new MenuState(stateManager));
 		spriteBatch = new SpriteBatch();
 	}
 	@Override
