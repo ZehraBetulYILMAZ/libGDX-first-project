@@ -1,6 +1,7 @@
 package com.zehir1345java.game.controller;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
@@ -33,12 +34,13 @@ public class Controller {
         if(isClick) {
             endCord.x = Gdx.input.getX();
             endCord.y = Gdx.input.getY();
-            direction.x = (endCord.x-beginCord.x);
-            direction.y = (endCord.y-beginCord.y);
+            direction.x = (endCord.x-beginCord.x)/25;
+            direction.y = (endCord.y-beginCord.y)/25;
         }
     }
     public void render(){
        shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
+       shapeRenderer.setColor(Color.BLUE);
        shapeRenderer.circle(xKord,yKord,radius);
        shapeRenderer.line(beginCord,endCord);
        shapeRenderer.end();

@@ -13,7 +13,7 @@ public class ImageLoader {
        texture = new Texture(Gdx.files.internal("./assets/car1.png"));
        bgTexture = new Texture(Gdx.files.internal("./assets/background.jpg"));
        btnTexture = new Texture(Gdx.files.internal("./assets/Button.png"));
-       bgTextRegiion = new TextureRegion(bgTexture,0,0, 480, 800);
+       bgTextRegiion = new TextureRegion(bgTexture,0,0, bgTexture.getWidth(), bgTexture.getHeight());
        btnTextRegion = new TextureRegion(btnTexture, 165,2,390,180);
        textureRegion = new TextureRegion(texture,0,0,100,100);
         bgTextRegiion.flip(false,true);

@@ -9,7 +9,7 @@ import java.util.Vector;
 
 public class Player implements GameObject{
     private float xKord,yKord,width,height;
-    private float speed,maxSpeed,minSpeed,acceleration;
+    private float speedX,speedY,maxSpeed,minSpeed,acceleration;
     private boolean left=false,right=false,up=false,down=false;
     private boolean movewithDirection=false;
     private Vector2 direction;
@@ -18,9 +18,10 @@ public class Player implements GameObject{
         this.yKord = yKord;
         this.width = width;
         this.height = height;
-        speed = 0;
+        speedX = 0;
+        speedY=0;
         acceleration=0.02f;
-        maxSpeed=12;
+        maxSpeed=3;
         minSpeed=0;
         direction = vector2;
     }
@@ -33,18 +34,29 @@ public class Player implements GameObject{
 
     @Override
     public void update(float delta) {
-      speed+=acceleration;
-      move();
-      if(movewithDirection){
-          xKord += direction.x/100;
-          yKord += direction.y/100;
-      }
+     // move();
+        if (movewithDirection) {
+            if (speedX <= maxSpeed) {
+                speedX += direction.x / 100;
+                if (speedX > maxSpeed) {
+                    speedX = maxSpeed; // Hızı maxSpeed değerine sınırla
+                }
+            }
+            if (speedY <= maxSpeed) {
+                speedY += direction.y / 100;
+                if (speedY > maxSpeed) {
+                    speedY = maxSpeed; // Hızı maxSpeed değerine sınırla
+                }
+            }
+            xKord += speedX;
+            yKord += speedY;
+        }
     }
     public void move(){
-        if(left) xKord-=speed;
-        if(right) xKord+=speed;
-        if(down) yKord+=speed;
-        if(up) yKord-=speed;
+        if(left) xKord-=speedX;
+        if(right) xKord+=speedX;
+        if(down) yKord+=speedY;
+        if(up) yKord-=speedY;
     }
 
     public void setLeft(boolean left) {
@@ -65,5 +77,21 @@ public class Player implements GameObject{
 
     public void setMovewithDirection(boolean movewithDirection) {
         this.movewithDirection = movewithDirection;
+    }
+
+    public float getxKord() {
+        return xKord;
+    }
+
+    public float getyKord() {
+        return yKord;
+    }
+
+    public float getSpeedX() {
+        return speedX;
+    }
+
+    public float getSpeedY() {
+        return speedY;
     }
 }

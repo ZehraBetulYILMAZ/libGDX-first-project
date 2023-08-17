@@ -24,6 +24,9 @@ public class PlayState extends State{
     @Override
     public void render(SpriteBatch spriteBatch) {
         spriteBatch.setProjectionMatrix(camera.combined);
+        spriteBatch.begin();
+        spriteBatch.draw(ImageLoader.bgTexture,0,0, Gdx.graphics.getWidth(),Gdx.graphics.getHeight());
+        spriteBatch.end();
          gameWorld.render(spriteBatch);
          backButton.render(spriteBatch);
 
@@ -31,7 +34,9 @@ public class PlayState extends State{
 
     @Override
     public void update(float delta) {
-       gameWorld.update(delta);
+
+        gameWorld.update(delta);
+        updateCamera();
     }
 
     @Override
@@ -39,6 +44,17 @@ public class PlayState extends State{
         if (Gdx.input.isTouched()){
             System.out.println("PlayState dokunuldu") ;
         }
+    }
+    public void updateCamera(){
+        if(gameWorld.getPlayer().getxKord() < (camera.position.x - Gdx.graphics.getWidth()/6))
+         camera.position.x += gameWorld.getPlayer().getSpeedX();
+        if(gameWorld.getPlayer().getxKord() > (camera.position.x + Gdx.graphics.getWidth()/2))
+            camera.position.x += gameWorld.getPlayer().getSpeedX();
+        if(gameWorld.getPlayer().getyKord() < (camera.position.y - Gdx.graphics.getHeight()/2))
+            camera.position.y += gameWorld.getPlayer().getSpeedY();
+        if(gameWorld.getPlayer().getyKord() > (camera.position.y + Gdx.graphics.getHeight()/2))
+            camera.position.y += gameWorld.getPlayer().getSpeedY();
+        camera.update();
     }
     public GameWorld getGameWorld(){
         return gameWorld;
